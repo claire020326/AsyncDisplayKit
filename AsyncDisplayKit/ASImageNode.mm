@@ -111,6 +111,8 @@
   ASDN::MutexLocker l(_imageLock);
   if (_image != image) {
     _image = image;
+
+    ASDN::MutexUnlocker u(_imageLock);
     ASDisplayNodePerformBlockOnMainThread(^{
       [self invalidateCalculatedSize];
       [self setNeedsDisplay];
@@ -129,6 +131,8 @@
   ASDN::MutexLocker l(_imageLock);
   if (_tint != tint) {
     _tint = tint;
+
+    ASDN::MutexUnlocker u(_imageLock);
     ASDisplayNodePerformBlockOnMainThread(^{
       [self setNeedsDisplay];
     });
